@@ -39,10 +39,16 @@ app.use('/', articleRouter);
 app.use(express.static('public'));
 
 // Database configuration with mongoose
-var URI =
+var MONGODB_URI =
   process.env.MONGODB_URI ||
   'mongodb://localhost:27017/ALL-THE-NEWS-THAT-S-FIT-TO-SCRAPE';
-mongoose.connect(URI, { useNewUrlParser: true }, { useUnifiedTopology: true });
+mongoose.connect(
+  MONGODB_URI,
+  { useNewUrlParser: true },
+  { useUnifiedTopology: true },
+  { useCreateIndex: true }
+);
+
 var db = mongoose.connection;
 
 // Show any mongoose errors

@@ -1,8 +1,6 @@
-//==========
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
-var axios = require('axios');
 var Comment = require('../models/Comment.js');
 var Article = require('../models/Article.js');
 var router = express.Router();
@@ -12,13 +10,17 @@ var router = express.Router();
 // Scrape data from NPR website and save to mongodb
 router.get('/scrape', function(req, res) {
   // Grab the body of the html with request
-  axios.get('https://globoesporte.globo.com/').then(function(response) {
+  request('http://www.npr.org/sections/news/archive', function(
+    error,
+    response,
+    html
+  ) {
     // Load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
+    var $ = cheerio.load('<div class="archivelist">...</div>');
     // Grab every part of the html that contains a separate article
     $('div.archivelist > article').each(function(i, element) {
       // Save an empty result object
-      var result = [];
+      var result = {};
 
       // Get the title and description of every article, and save them as properties of the result object
       // result.title saves entire <a> tag as it appears on NPR website
@@ -66,6 +68,7 @@ router.get('/articles', function(req, res) {
       // Or send the doc to the browser as a json object
       else {
         res.json(doc);
+        console.log(res);
       }
     });
 });

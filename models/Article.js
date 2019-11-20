@@ -1,5 +1,5 @@
 // Require mongoose
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 // Create Schema class and get a reference to the mongoose Schema constructor
 var Schema = mongoose.Schema;
@@ -25,14 +25,16 @@ var ArticleSchema = new Schema({
     default: false
   },
   // This will save an array of comments' ObjectIds
-  comments:[{
-        type: Schema.ObjectId,
-        ref:'Comment'
-    }]
+  comments: [
+    {
+      type: Schema.ObjectId,
+      ref: 'Comment'
+    }
+  ]
 });
 
 // Create the Article model with the ArticleSchema
-var Article = mongoose.model("Article", ArticleSchema);
+var Article = mongoose.model('Article', ArticleSchema);
 
 // Export the model
 module.exports = Article;
