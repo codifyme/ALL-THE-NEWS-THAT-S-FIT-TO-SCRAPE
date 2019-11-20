@@ -10,13 +10,9 @@ var router = express.Router();
 // Scrape data from NPR website and save to mongodb
 router.get('/scrape', function(req, res) {
   // Grab the body of the html with request
-  request('http://www.npr.org/sections/news/archive', function(
-    error,
-    response,
-    html
-  ) {
+  request('https://www.nbcbayarea.com/', function(error, response, html) {
     // Load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load('<div class="archivelist">...</div>');
+    var $ = cheerio.load('<div class="archivelist">...</div>'); //http://www.npr.org/sections/news/archive
     // Grab every part of the html that contains a separate article
     $('div.archivelist > article').each(function(i, element) {
       // Save an empty result object
